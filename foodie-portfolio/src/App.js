@@ -1,11 +1,14 @@
 import React from 'react';
 
-import './App.css';
+import PostList from '../src/components/PostContainer/PostList';
+import SearchBar from '../src/components/SearchBar/SearchBar';
+
 
 function App() {
   return (
-    <div className="App">
-      Foodie Portfolio App
+    <div>
+      <SearchBar />
+      <PostList />
     </div>
   );
 }
