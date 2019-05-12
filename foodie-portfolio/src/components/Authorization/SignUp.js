@@ -1,11 +1,14 @@
 import React from 'react';
 
-class Login extends React.Component {
+class SignUp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             username: "",
             password: "",
+            location: "",
+            email: ""
+            }
         };
     }
 
@@ -44,4 +47,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default SignUp;

@@ -10,6 +10,7 @@ import { faHome } from '@fortawesome/free-solid-svg-icons'
 
 const StyledSearchContainer = styled.div`
     text-align: center;
+    margin: 20% 0 0 0;
 `;
 const SearchBar = props => {
     return (
