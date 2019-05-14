@@ -1,52 +1,54 @@
 import React from 'react';
+import { Route } from "react-router-dom";
+import axios from 'axios';
 
 import Authenticate from '../src/components/Authorization/Authenticate';
-import Backdrop from './components/Backdrop/Backdrop';
-import PostList from '../src/components/PostContainer/PostList';
-import SearchBar from '../src/components/SearchBar/SearchBar';
+import CreatePost from './components/PostContainer/CreatePost';
+import Login from './components/Authorization/Login';
+import Portfolio from './components/Portfolio/Portfolio';
+import Recipes from './components/Recipes/Recipes';
+import Signup from './components/Authorization/SignUp';
 import TopNav from '../src/components/TopNav/TopNav';
-import SideDrawer from './components/SideDrawer/SideDrawer'
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sideDrawerOpen: false
-    }
-    console.log("sidedrawer",this.state.sideDrawerOpen)
+      RecipeData: [],
+      filteredData: []
+    };
   }
 
-  drawerToggleClickHandler = () => {
-    this.setState((prevState) => {
-      return {sideDrawerOpen: !prevState.sideDrawerOpen};
-    });
+  componentDidMount() {
+    axios
+      .get("API_URL")
+      .then(res => {
+        this.setState({ RecipeData: res.data });
+      })
+      .catch(err => console.log(err));
+  }
+
+  submitRecipePost = newRecipePost => {
+    this.setState({ RecipeData: newRecipePost });
   };
 
-  backdropClickHandler = () => {
-    this.setState({sideDrawerOpen: false});
-  };
 
 
   
   render() {
-    let sideDrawer;
-    let backdrop;
 
-    if (this.state.sideDrawerOpen) {
-      sideDrawer = <SideDrawer />;
-      backdrop = <Backdrop closeClick={this.backdropClickHandler}/>;
-    }
 
     return (
       <div style={{ height: '100%'}}>
-        <TopNav drawerClickHandler={this.drawerToggleClickHandler}/>
-        {sideDrawer}
-        {backdrop}
-        <SearchBar />
-        <PostList />
+        <TopNav />
+          <Route path="/" exact component={Login} />
+          <Route path="/signup" exact component={Signup} />
+          <Route path="/portfolio" exact component={Portfolio} />
+          <Route path="/recipes" exact component={Recipes} /> 
+          <Route path="/createpost" exact render={props => (<CreatePost submitRecipePost={this.submitRecipePost} {...props} />)} />        
   
-        <button onClick={localStorage.removeItem("user")}
-        >Log out</button>
+
       </div>
     );
   }

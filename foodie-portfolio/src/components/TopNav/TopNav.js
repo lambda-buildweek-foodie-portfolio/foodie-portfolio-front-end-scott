@@ -1,7 +1,8 @@
 import React from 'react';
+import {NavLink, Link} from 'react-router-dom';
 import styled from 'styled-components';
 
-import SideDrawerToggleButton from './../SideDrawer/SideDrawerToggleButton';
+
 
 const StyledToolbar = styled.header`
     background: grey;
@@ -22,8 +23,7 @@ const StyledToolbarNav = styled.div`
 const StyledToolbarLogo = styled.div`
     margin: 0 0 0 1rem;
     a {
-        color:white;
-
+        color:lightgrey;
         text-decoration: none;
         font-size: 1.5rem;
     }
@@ -31,10 +31,7 @@ const StyledToolbarLogo = styled.div`
 
 const StyledToolbarNavItems = styled.div`
     a {
-        color: white;
-        text-decoration: none;
 
-        :hover {cursor: pointer; color: blue };
     }
 
     ul {
@@ -45,12 +42,23 @@ const StyledToolbarNavItems = styled.div`
     }
 
     li {
-        padding: 0 .5rem;
+        
     }
 `;
 
 const Spacer = styled.div`
     flex: 1;
+`;
+
+const StyledNavLink = styled(NavLink)`
+        padding: 0 .5rem;
+        color: lightgrey;
+        text-decoration: none;
+        :hover {cursor: pointer; color: white };
+        &.active {
+            color: darkgrey
+        }
+
 `;
 
 
@@ -67,18 +75,22 @@ class TopNav extends React.Component {
         return(
             <StyledToolbar>
                 <StyledToolbarNav>
-                    <div>
-                        <SideDrawerToggleButton click={this.state.props.drawerClickHandler}/>
-                    </div>
                     <StyledToolbarLogo><a href="/">Logo</a></StyledToolbarLogo>
                     <Spacer></Spacer>
                     <StyledToolbarNavItems>
                         <ul>
-                            <li><a href="/">Home</a></li>
+                            <StyledNavLink to="/" exact activeClassName="active">Login</StyledNavLink>
+                            <StyledNavLink to="/signup" activeClassName="active">Signup</StyledNavLink>
+                            <StyledNavLink to="/createpost" activeClassName="active">Create Post</StyledNavLink>
+                            <StyledNavLink to="/portfolio" activeClassName="active">Portfolio</StyledNavLink>
+                            <StyledNavLink to="/recipes" activeClassName="active">Recipes</StyledNavLink>
+                            
+
+                            {/* <li><a href="/">Home</a></li>
                             <li><a href="/login">Login</a></li>
                             <li><a href="/register">Register</a></li>
                             <li><a href="/create">Create Post</a></li>
-                            <li><a href="/portfolio">Portfolio</a></li>
+                            <li><a href="/portfolio">Portfolio</a></li> */}
                         </ul>
                     </StyledToolbarNavItems>
                 </StyledToolbarNav>

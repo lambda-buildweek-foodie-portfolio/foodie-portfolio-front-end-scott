@@ -1,4 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const SignupContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20% 0 0 0;
+  margin: 0 auto;
+  
+  input {
+      margin: 5px auto;
+  }
+`;
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -6,9 +20,9 @@ class SignUp extends React.Component {
         this.state = {
             username: "",
             password: "",
+            confirmPassword: "",
             location: "",
             email: ""
-            }
         };
     }
 
@@ -17,14 +31,25 @@ class SignUp extends React.Component {
       };
     
       handleLoginSubmit = e => {
+        e.preventDefault();
         const user = this.state.username;
-        localStorage.setItem("user", user);
-        window.location.reload();
+        const  password = this.state.password
+        const confirmPassword  = this.state.confirmPassword;
+        if (password !== confirmPassword) {
+            alert("Passwords don't match");
+        } else {
+            // make API call
+            localStorage.setItem("user", user);
+            window.location.reload();
+        }
+
       };
     
     render() {
         return(
-            <form>
+            <div>
+            <SignupContainer>
+            
                 <input 
                     type="text"
                     placeholder="User Name"
@@ -34,15 +59,38 @@ class SignUp extends React.Component {
                 />
                 <input 
                     type="text"
+                    placeholder="User Location"
+                    name="location"
+                    value={this.state.location}
+                    onChange={this.handleInputChange}
+                />
+                <input 
+                    type="text"
+                    placeholder="User Email"
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.handleInputChange}
+                />
+                <input 
+                    type="text"
                     placeholder="Password"
                     name="password"
                     value={this.state.password}
                     onChange={this.handleInputChange}
                 />
+                <input 
+                    type="text"
+                    placeholder="Re-Enter Password"
+                    name="confirmPassword"
+                    value={this.state.confirmPassword}
+                    onChange={this.handleInputChange}
+                />                                                   
                 <button onClick={this.handleLoginSubmit}>
-                    Log In
+                    Sign Up
                 </button>                
-            </form>
+            
+            </SignupContainer>
+            </div> 
         );
     }
 }
