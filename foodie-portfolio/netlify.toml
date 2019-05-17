@@ -1,0 +1,3 @@
+base = "foodie-portfolio/"
+publish = "foodie-portfolio/build-output/"
+command = "yarn build"
