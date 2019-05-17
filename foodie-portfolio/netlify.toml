@@ -1,0 +1,4 @@
+[build]
+base = "foodie-portfolio/"
+publish = "foodie-portfolio/build"
+command = "yarn build"
