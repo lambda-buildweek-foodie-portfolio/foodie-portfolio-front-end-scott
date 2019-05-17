@@ -23,18 +23,20 @@ const LoginButton = styled.button`
   width: 100%;
   
   :disabled {background: lightgrey};
-  :disabled:hover {background: lightgrey; border: white; color: white;};
+  :disabled:hover {background: lightgrey; border: grey; color: white;};
   :focus {outline: none};
-  :hover {background-color: white; color:#115D8D; border: 1px solid #115D8D; cursor: pointer }
+  :hover {background-color: white; color: grey; border: 1px solid grey; cursor: pointer }
 `;
 
 const InputBox = styled.input`
+    display: flex;
     border-radius: 5px;
     margin: 1px;
     padding: 4px;
     -webkit-appearance: none; 
     -moz-appearance: none; 
     border: 2px solid #eee;
+    text-align: center; 
 
     :focus {outline-color: lightgrey};
     :-webkit-autofill {
@@ -44,7 +46,7 @@ const InputBox = styled.input`
 `;
 
 const SignupLink = styled(Link)`
-    color: blue;
+    color: grey;
     font-weight: bold;
     display: flex;
     justify-content: center;
@@ -65,6 +67,7 @@ class Login extends React.Component {
       };
     
       handleLoginSubmit = e => {
+        e.preventDefault();
         const user = this.state.username;
         localStorage.setItem("user", user);
         window.location.reload();
@@ -74,24 +77,24 @@ class Login extends React.Component {
         return(
             <div>
                 <LoginContainer>
-                    <form onSubmit={this.handleLoginSubmit}>
-                    <InputBox 
-                        type="text"
-                        placeholder="User Name"
-                        name="username"
-                        value={this.state.username}
-                        onChange={this.handleInputChange}
-                    />
-                    <InputBox 
-                        type="text"
-                        placeholder="Password"
-                        name="password"
-                        value={this.state.password}
-                        onChange={this.handleInputChange}
-                    />
-                    <LoginButton onClick={this.handleLoginSubmit} disabled={!this.state.username || !this.state.password}>
-                        Log In
-                    </LoginButton>
+                    <form>
+                        <InputBox 
+                            type="text"
+                            placeholder="User Name"
+                            name="username"
+                            value={this.state.username}
+                            onChange={this.handleInputChange}
+                        />
+                        <InputBox 
+                            type="password"
+                            placeholder="Password"
+                            name="password"
+                            value={this.state.password}
+                            onChange={this.handleInputChange}
+                        />
+                        <LoginButton onClick={this.handleLoginSubmit} disabled={!this.state.username || !this.state.password}>
+                            Log In
+                        </LoginButton>
                     </form>                
                 </LoginContainer>
                 <SignupLink to="/signup" component={SignUp}>Click Here to Sign Up!</SignupLink>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-const CreatePostContainer = styled.form`
+const CreateContainer = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,19 +15,81 @@ const CreatePostContainer = styled.form`
   }
 `;
 
+const CreateInputBox = styled.input`
+    display: flex;
+    border-radius: 5px;
+    margin: 1px;
+    padding: 4px;
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    border: 2px solid #eee;
+    width: 100%;
+    text-align: center;
+
+    :focus {outline-color: lightgrey};
+    :-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0px 9999px white;
+    }
+}
+`;
+
+const CreateInputBoxTextArea = styled.textarea`
+    display: flex;
+    border-radius: 5px;
+    margin: 1px;
+    padding: 4px;
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    border: 2px solid #eee;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    resize: none;
+
+    :focus {outline-color: lightgrey};
+    :-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0px 9999px white;
+    }
+}
+`;
+
+const CreateButton = styled.button`
+  border: none;
+  border-radius: 5px;
+  background-color: grey;
+  color: white;
+  display: block;
+  font-size: 15px;
+  padding: 10px;
+  margin: 10px 0 10px 0;
+  text-decoration: none;
+  width: 100%;
+  
+  :disabled {background: lightgrey};
+  :disabled:hover {background: lightgrey; border: grey; color: white;};
+  :focus {outline: none};
+  :hover {background-color: white; color: grey; border: 1px solid grey; cursor: pointer }
+`;
+
+
+
 class CreatePost extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             title: "",
-            imageUrl: "",
+            image: "",
             mealType: "",
             ingredients: "",
             instructions: "",
         }
     }
 
-    handleSubmit = e => {
+    handleInputChange = e => {
+        this.setState({ [e.target.name]: e.target.value });
+      };
+
+    handleCreateSubmit = e => {
         e.preventDefault();
         axios
           .post("API_URL", this.state)
@@ -37,53 +99,65 @@ class CreatePost extends React.Component {
           .catch(err => console.log(err));
         this.setState({
             title: "",
-            imageUrl: "",
-            mealType: "",
+            image: "",
+            mealtype: "",
             ingredients: "",
             instructions: "",
         });
         this.props.history.push("/recipes");
       };
 
+
+
     render() {
         return(
-            <CreatePostContainer>
+            <CreateContainer>
                 <h1>Create A Recipe!</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <input
+                <form >
+                    <CreateInputBox
                         name="title"
-                        placeholder="Title"
+                        placeholder="Recipe Title"
                         type="text"
+                        value={this.state.title}
+                        onChange={this.handleInputChange}                        
                     />
-                    <input
+                    <CreateInputBox
                         name="image"
-                        placeholder="Image URL"
+                        placeholder="Recipe Image URL"
                         type="text"
+                        value={this.state.image}
+                        onChange={this.handleInputChange}                             
                     />                    
-                    <input
+                    <CreateInputBox
                         name="mealtype"
                         placeholder="Meal Type"
                         type="text"
+                        value={this.state.mealtype}
+                        onChange={this.handleInputChange}     
                     />
-                    <textarea
+                    <CreateInputBoxTextArea
                         name="ingredients"
-                        placeholder="Ingredients"
+                        placeholder="Recipe Ingredients"
                         rows="10"
                         cols="40"                        
                         type="text"
+                        value={this.state.ingredients}
+                        onChange={this.handleInputChange}     
                     />
-                    <textarea
+                    <CreateInputBoxTextArea
                         name="instructions"
-                        placeholder="Instructions"
+                        placeholder="Recipe Instructions"
                         rows="10"
                         cols="40"
                         type="text"
+                        value={this.state.instructions}
+                        onChange={this.handleInputChange}     
                     />
-                    <button>Create Recipe!</button>                                        
+                    <CreateButton onClick={this.handleCreateSubmit} disabled={!this.state.title || !this.state.image || !this.state.mealtype || !this.state.ingredients || !this.state.instructions}>Create Recipe!</CreateButton>                                        
                 </form>
-            </CreatePostContainer>
+            </CreateContainer>
         )
     }
 }
 
-export default CreatePost
+export default CreatePost;

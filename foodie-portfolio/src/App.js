@@ -20,6 +20,7 @@ class App extends React.Component {
     };
   }
 
+
   componentDidMount() {
     axios
       .get("API_URL")
@@ -40,7 +41,7 @@ class App extends React.Component {
 
 
     return (
-      <div style={{ height: '100%'}}>
+      <div>
         <TopNav />
           <Route path="/" exact component={Login} />
           <Route path="/signup" exact component={Signup} />

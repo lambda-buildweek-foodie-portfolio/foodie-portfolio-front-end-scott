@@ -1,5 +1,7 @@
 import React from 'react';
 import {NavLink, Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUtensils } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components';
 
 
@@ -75,7 +77,7 @@ class TopNav extends React.Component {
         return(
             <StyledToolbar>
                 <StyledToolbarNav>
-                    <StyledToolbarLogo><a href="/">Logo</a></StyledToolbarLogo>
+                    <StyledToolbarLogo><a href="/" ><FontAwesomeIcon icon={faUtensils} size="3x"  /></a></StyledToolbarLogo>
                     <Spacer></Spacer>
                     <StyledToolbarNavItems>
                         <ul>
