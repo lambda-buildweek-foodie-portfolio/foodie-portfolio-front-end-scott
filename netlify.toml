@@ -1,5 +1,5 @@
 [build]
-base = "foodie-portfolio-front-end-scott/"
+base = ""
 publish = "foodie-portfolio-front-end-scott/build"
 command = "yarn build"
 
