@@ -1,6 +1,6 @@
 [build]
-base = "foodie-portfolio/"
-publish = "foodie-portfolio/build"
+base = "foodie-portfolio-front-end-scott/"
+publish = "foodie-portfolio-front-end-scott/build"
 command = "yarn build"
 
 [[redirects]]
