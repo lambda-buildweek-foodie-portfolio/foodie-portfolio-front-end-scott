@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 
 const SignupContainer = styled.form`
@@ -63,22 +64,33 @@ class SignUp extends React.Component {
 
     handleInputChange = e => {
         this.setState({ [e.target.name]: e.target.value });
-      };
+    };
     
-      handleSignupSubmit = e => {
-        e.preventDefault();
-        const user = this.state.username;
-        const  password = this.state.password
-        const confirmPassword  = this.state.confirmPassword;
-        if (password !== confirmPassword) {
-            alert("Passwords don't match");
-        } else {
-            // make API call
-            localStorage.setItem("user", user);
-            window.location.reload();
-        }
+    // handleSignupSubmit = e => {
+    //     e.preventDefault();
+    //     const user = this.state.username;
+    //     const  password = this.state.password
+    //     const confirmPassword  = this.state.confirmPassword;
+    //     if (password !== confirmPassword) {
+    //         alert("Passwords don't match");
+    //     } else {
+    //         // make API call
+    //         localStorage.setItem("user", user);
+    //         window.location.reload();
+    //     }
+    // };
 
-      };
+    handleSignupSubmit = event => {
+        event.preventDefault();
+        axios.post('https://foodie-portfolio.herokuapp.com/users/register', this.state)
+          .then(res => {localStorage.setItem('jwt', res.data.token);})
+          .catch(err => {console.log(err);})
+        this.setState({
+          username: "",
+          password: "",
+          location: "",
+        })
+      }
     
     render() {
         return(
