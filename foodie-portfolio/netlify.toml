@@ -2,3 +2,8 @@
 base = "foodie-portfolio/"
 publish = "foodie-portfolio/build"
 command = "yarn build"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
