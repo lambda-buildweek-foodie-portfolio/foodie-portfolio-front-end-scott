@@ -1,6 +1,6 @@
 [build]
 base = ""
-publish = "lambda-buildweek-foodie-portfolio/foodie-portfolio-front-end-scott/build"
+publish = "build"
 command = "yarn build"
 
 [[redirects]]
