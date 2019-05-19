@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 
@@ -65,13 +66,22 @@ class Login extends React.Component {
     handleInputChange = e => {
         this.setState({ [e.target.name]: e.target.value });
       };
-    
-      handleLoginSubmit = e => {
+
+
+    handleLoginSubmit = e => {
         e.preventDefault();
-        const user = this.state.username;
-        localStorage.setItem("user", user);
-        window.location.reload();
-      };
+        axios.post('https://foodie-portfolio.herokuapp.com/users/login', this.state)
+          .then(res => {
+            localStorage.setItem('jwt', res.data.token);
+            this.props.history.push('/portfolio');
+          }).catch(err => {
+            console.log(err);
+          })
+          this.setState({
+            username: "",
+            password: ""
+          })
+      }
     
     render() {
         return(

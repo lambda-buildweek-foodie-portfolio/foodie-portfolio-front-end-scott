@@ -83,13 +83,17 @@ class SignUp extends React.Component {
     handleSignupSubmit = event => {
         event.preventDefault();
         axios.post('https://foodie-portfolio.herokuapp.com/users/register', this.state)
-          .then(res => {localStorage.setItem('jwt', res.data.token);})
+          .then(res => {localStorage.setItem('jwt', res.data.token);
+          this.props.history.push('/');
+          })
           .catch(err => {console.log(err);})
         this.setState({
           username: "",
           password: "",
           location: "",
-        })
+        });
+        console.log("signup",this.state)
+        
       }
     
     render() {
