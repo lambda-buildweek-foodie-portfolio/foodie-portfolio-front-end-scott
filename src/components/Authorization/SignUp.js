@@ -56,7 +56,6 @@ class SignUp extends React.Component {
         this.state = {
             username: "",
             password: "",
-            confirmPassword: "",
             location: "",
             email: ""
         };
@@ -83,17 +82,18 @@ class SignUp extends React.Component {
     handleSignupSubmit = event => {
         event.preventDefault();
         axios.post('https://foodie-portfolio.herokuapp.com/users/register', this.state)
-          .then(res => {localStorage.setItem('jwt', res.data.token);
+          .then(res => {console.log(res.data);
           this.props.history.push('/');
+          console.log("SIGNUP",this.props)
           })
           .catch(err => {console.log(err);})
         this.setState({
           username: "",
           password: "",
           location: "",
+          email: "",
         });
         console.log("signup",this.state)
-        
       }
     
     render() {
@@ -129,14 +129,14 @@ class SignUp extends React.Component {
                         value={this.state.password}
                         onChange={this.handleInputChange}
                     />
-                    <SignupInputBox 
+                    {/* <SignupInputBox 
                         type="password"
                         placeholder="Re-Enter Password"
                         name="confirmPassword"
                         value={this.state.confirmPassword}
                         onChange={this.handleInputChange}
-                    />                                                   
-                    <SignupButton onClick={this.handleSignupSubmit} disabled={!this.state.username || ! this.state.location || !this.state.email || !this.state.password || !this.state.confirmPassword}>
+                    />                                                    */}
+                    <SignupButton onClick={this.handleSignupSubmit} disabled={!this.state.username || ! this.state.location || !this.state.email || !this.state.password}>
                         Sign Up
                     </SignupButton>                
                 </form>

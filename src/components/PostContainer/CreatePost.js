@@ -91,19 +91,23 @@ class CreatePost extends React.Component {
 
     handleCreateSubmit = e => {
         e.preventDefault();
+        const headers = { Authorization: localStorage.getItem('token') }
         axios
-          .post("API_URL", this.state)
+          .post("https://foodie-portfolio.herokuapp.com/recipe", this.state, { headers })
           .then(res => {
-            this.props.submitRecipePost(res.data);
+            // this.props.submitRecipePost(res.data);
+            this.setState({
+                title: "",
+                image: "",
+                mealType: "",
+                ingredients: "",
+                instructions: "",
+            });
+            console.log("CREATE RECIPE", this.state)
+            
           })
           .catch(err => console.log(err));
-        this.setState({
-            title: "",
-            image: "",
-            mealtype: "",
-            ingredients: "",
-            instructions: "",
-        });
+        
         this.props.history.push("/recipes");
       };
 
