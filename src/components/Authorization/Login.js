@@ -72,7 +72,8 @@ class Login extends React.Component {
         e.preventDefault();
         axios.post('https://foodie-portfolio.herokuapp.com/users/login', this.state)
           .then(res => {
-            localStorage.setItem('jwt', res.data.token);
+            localStorage.setItem('token', res.data.token);
+            console.log("token",localStorage.getItem('token'))
             this.props.history.push('/portfolio');
           }).catch(err => {
             console.log(err);

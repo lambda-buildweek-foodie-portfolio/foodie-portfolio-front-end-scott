@@ -23,7 +23,7 @@ class App extends React.Component {
 
   componentDidMount() {
     axios
-      .get("API_URL")
+      .get("https://foodie-portfolio.herokuapp.com/recipe")
       .then(res => {
         this.setState({ RecipeData: res.data });
       })

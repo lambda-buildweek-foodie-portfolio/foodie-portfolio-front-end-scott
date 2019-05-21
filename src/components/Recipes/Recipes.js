@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import SearchBar from '../SearchBar/SearchBar';
 import Recipe from './Recipe';
@@ -12,12 +13,20 @@ class Recipes extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: "Title",
-            imageUrl: "imageURL",
-            mealType: "mealType",
-            ingredients: "ingredients",
-            instructions: "instructions",
+            recipes: [],
+
         }
+    }
+
+    componentDidMount() {
+        axios
+          .get(`https://foodie-portfolio.herokuapp.com/recipe`)
+          .then(res => 
+            {console.log("GET REQUEST",res.data);
+            this.setState({recipes: res.data });
+            console.log("GET STATE",this.state)
+          })
+          .catch(err => console.log(err));
     }
 
     render() {
@@ -27,11 +36,8 @@ class Recipes extends React.Component {
                 <StyledContainer>
                     
                     <div>
-                    {this.state.title}
-                    {this.state.imageUrl}
-                    {this.state.mealType}
-                    {this.state.ingredients}
-                    {this.state.instructions}
+
+                        {this.state.recipes.map(recipe => (<Recipe key={recipe.id} recipeID={recipe.id} recipeTitle={recipe.title} recipeIngrdients={recipe.ingredients}/>))}
                     </div>
                     
                     <Recipe />   
